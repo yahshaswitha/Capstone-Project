@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@0.3.0/dist/tailwind.min.css" rel="stylesheet">
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Permanent+Marker&family=Rubik+Bubbles&family=Rubik+Moonrocks&display=swap" rel="stylesheet">
+
+</head>
+<style>
+
+</style>
+<body class="bg-gray-40">
+
+    <nav style="height: 4rem;width: 100%; background-color: black;color: white;font-family: 'Oswald', sans-serif;
+  font-family: 'Permanent Marker', cursive;
+  font-family: 'Rubik Moonrocks', cursive; font-size: 2.4rem; padding: 0.5rem;margin: auto;">
+    Election Portal
+  </nav>
+
+    <div class="bg-grey-lighter min-h-screen flex flex-col">
+        <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+            <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                <h1 class="mb-8 text-3xl text-center">Sign In</h1>
+                <div>
+                    <% if (messages && messages.error && messages.error.length > 0) { %>
+                        <% for(var i=0; i<messages.error.length; i++) { %>
+                            <p class="bg-red my-3 list-none rounded px-4 py-2 text-black"><%= messages.error[i] %></p>
+                        <% } %>
+                    <% } %>
+                </div>
+                <form action="/login" method="post" >
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <input  type="email" class="block border border-grey-light w-full p-3 rounded mb-4" name="email" placeholder="Email" required />
+                <input  type="password" class="block border border-grey-light w-full p-3 rounded mb-4" name="password" placeholder="Password" />
+                <button type="submit" class="w-full text-center py-3 rounded bg-black text-white hover:bg-grey focus:outline-none my-1">Login</button>
+                </form>
+                <div class="text-center text-sm text-grey-dark mt-4">
+                    By signing up, you agree to the 
+                    <a class="no-underline border-b border-grey-dark text-grey-dark" href="#">
+                        Terms of Service
+                    </a> and 
+                    <a class="no-underline border-b border-grey-dark text-grey-dark" href="#">
+                        Privacy Policy
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-grey-dark mt-6">Don't have an account?<a class="no-underline border-b border-blue text-blue" href="/signup">Signup
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

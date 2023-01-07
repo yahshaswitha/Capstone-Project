@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../public/css/style.css">    
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Permanent+Marker&family=Rubik+Bubbles&family=Rubik+Moonrocks&display=swap" rel="stylesheet">
+
+</head>
+<style>
+  .main{ 
+    width: 100%;
+    height: 95vh;
+    z-index: 1;
+    background: url("images/home.jpg") center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.4;
+    padding: 10rem;
+  };
+</style>
+<body class="voting">
+
+  <nav style="height: 4rem;width: 100%; background-color: black;color: white;font-family: 'Oswald', sans-serif;
+  font-family: 'Permanent Marker', cursive;
+  font-family: 'Rubik Moonrocks', cursive; font-size: 2.4rem; padding-left: 2rem;margin: auto;">
+    Election Portal
+  </nav>
+
+  <div class="main">
+    
+    <div class="grid" style="display: flex;justify-content: center;align-items: center;">        
+            <p class="py-8 text-6xl "  style="color: #0cb0b0; font-weight: 800;font-family: 'Rubik Bubbles', cursive;">Welcome to Online Voting Platform</p>
+    </div>
+    <div class="grid grid-cols-8">
+        <div class="col-start-4 col-span-2">
+          <p class="py-2 text-2xl  text-gray-600" >New here? <a class="text-blue-600" href="/signup">Sign-up</a></p>
+          <p class="py-2 text-2xl  text-gray-600">Already have an account? <a class="text-blue-600" href="/login">Sign-in</a></p>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
