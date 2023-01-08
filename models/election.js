@@ -17,6 +17,14 @@ module.exports = (sequelize, DataTypes) => {
         order: [["id", "ASC"]],
       });
     };
+    static addElection({creatorID,name,customurl})
+    {
+      return this.create({
+        creatorID,
+        name,
+        customurl
+      })
+    };
   }
   Election.init({
     name:{

@@ -1,30 +1,79 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title><%= title %></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Permanent+Marker&family=Rubik+Bubbles&family=Rubik+Moonrocks&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="<%= csrfToken %>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>
+    <%= title %>
+  </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Permanent+Marker&family=Rubik+Bubbles&family=Rubik+Moonrocks&family=Slabo+27px&display=swap"
+    rel="stylesheet">
 
 </head>
-<body >
 
-    <nav style="height: 4rem;width: 100%; background-color: black;">
+<body>
+
+  <nav style="height: 4rem;width: 100%; background-color: black;">
     <p style="color: white;font-family: 'Oswald', sans-serif;
     font-family: 'Permanent Marker', cursive;
-    font-family: 'Rubik Moonrocks', cursive; font-size: 2.4rem; padding: 0.5rem;margin: auto;display: inline-block;">Election Portal</p>
-    <a href="/signout"><p style="float:right;color: white;display: inline-block;font-size: 1.5rem;padding: 0.7rem;">Signout</p></a>
+    font-family: 'Rubik Moonrocks', cursive; font-size: 2.4rem; padding: 0.5rem;margin: auto;display: inline-block;">
+      Election Portal</p>
+    <a href="/signout">
+      <p style="float:right;color: white;display: inline-block;font-size: 1.5rem;padding: 0.7rem;">Signout</p>
+    </a>
   </nav>
 
   <div style="padding:2rem;">
-    <h1>Hello</h1>
+    <h1 style="font-family: 'Slabo 27px', serif;font-size: 2rem;color: #008080;">Welcome <%= Electionuser %> !</h1>
+    </h1>
+    <div>
+      <h1 style="font-family: 'Slabo 27px', serif;font-size: 2.7rem;color: #008080;margin-top: 2rem;">Elections</h1>
+      <p class="text-black">
+        <% if (elections.length===0) { %>
+          You haven't created any elections yet!
+          <% } %>
+      </p>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#76e86e" class="w-4 h-4 mt-1" style="display: inline-block;margin-bottom:1rem"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
+      <h1 style="font-family: 'Slabo 27px', serif;font-size: 1.7rem;color: #76e86e;margin-top: 1rem;display: inline-block;">
+      <a href="/elections/new">Create election</a></h1>
+
+      <ol class="list-decimal">
+        <% for (let i=0; i<elections.length; i++) { %>
+          <li>
+            <div class="flex justify-between items-center shadow-md w-full my-2 px-2 py-1 rounded p-1">
+              <div
+                class="flex items-center w-fit my-2 p-1 px-4  uppercase font-light py-1">
+                <a href="/elections/<%= elections[i].id %>" class="m-2 text-m text-blue-800">
+                  <%= elections[i].name %>
+                </a>
+              </div>
+              <div
+                class="rounded w-fit px-4  p-1 py-1 flex gap-2  uppercase font-light bg-sky-100 shadow-md text-black cursor-pointer hover:text-black">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="w-4 h-4 mt-1">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                </svg>
+                <a>Delete election</a>
+              </div>
+            </div>
+          </li>
+
+
+          <% } %>
+
+      </ol>
+    </div>
 
   </div>
 
 </body>
+
 </html>

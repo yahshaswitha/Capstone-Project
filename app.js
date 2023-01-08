@@ -164,6 +164,7 @@ app.get("/signout", (request, response, next) => {
 
 app.get("/elections",connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
+    if (request.user.role === "creator") {
     let Electionuser = request.user.firstName + " " + request.user.lastName;
     try {
       const elections = await Election.GetElections(request.user.id);
@@ -184,7 +185,51 @@ app.get("/elections",connectEnsureLogin.ensureLoggedIn(),
       console.log(error);
       return response.status(422).json(error);
     }
+  }
 } 
 );
+
+app.get("/elections/new",connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    if (request.user.role === "creator") {
+      return response.render("election/newElection", {
+        title: "Create a new Election",
+        csrfToken: request.csrfToken(),
+      });
+    }
+  }    
+);
+
+app.post("/elections/new",connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    if (request.user.role === "creator") {
+      if (request.body.name.length < 5) {
+        request.flash("error", "Name of election must atleast be 5 characters");
+        return response.redirect("/elections/new");
+      }
+      if (request.body.customurl.length < 5 && request.body.customurl.length!=0) {
+        request.flash("error", "Election url must atleast be 5 characters");
+        return response.redirect("/elections/new");
+      }
+      if (request.body.customurl.includes(" ") ||request.body.customurl.includes("\t") ||request.body.customurl.includes("\n")
+      ){
+        request.flash("error", "Election url must not contain any space");
+        return response.redirect("/elections/new");
+      }
+      try {
+        await Election.addElection({        
+          creatorID: request.user.id,
+          name: request.body.name,
+          customurl: request.body.customurl,
+        });
+        return response.redirect("/elections");
+      } catch (error) {
+        request.flash("error", "Email is already in used");
+        return response.redirect("/elections/new");
+      } 
+    }
+  }    
+);
+
 
 module.exports = app;

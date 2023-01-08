@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="<%= csrfToken %>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>
+    <%= title %>
+  </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Permanent+Marker&family=Rubik+Bubbles&family=Rubik+Moonrocks&family=Slabo+27px&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+
+  <nav style="height: 4rem;width: 100%; background-color: black;">
+    <p style="color: white;font-family: 'Oswald', sans-serif;
+    font-family: 'Permanent Marker', cursive;
+    font-family: 'Rubik Moonrocks', cursive; font-size: 2.4rem; padding: 0.5rem;margin: auto;display: inline-block;">
+      Election Portal</p>
+    <a href="/signout">
+      <p style="float:right;color: white;display: inline-block;font-size: 1.5rem;padding: 0.7rem;">Signout</p>
+    </a>
+  </nav>
+
+  <div style="padding:2rem;">
+    <h1 style="font-family: 'Slabo 27px', serif;font-size: 1.5rem;color: blue;margin-top: 0.5rem;">
+        <a href="/elections">Home</a>
+        >> <a href="/elections//new">Create Election</a>
+    </h1>
+    <div style="margin-top: 1rem;">
+       <h1 style="font-family: 'Slabo 27px', serif;font-size: 2.7rem;color: #008080;margin-top: 2rem;">Create a new election</h1>
+       <form action="/elections/new" method="post" style="margin-top: 1rem;">
+        <div>
+            <% if (messages && messages.error && messages.error.length > 0) { %>
+                <% for(var i=0; i<messages.error.length; i++) { %>
+                    <p class="bg-red-100 my-3 list-none rounded-md px-4 py-2"><%= messages.error[i] %></p>
+                <% } %>
+            <% } %>
+        </div>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <div>
+            <label for="name" class="block text-md font-medium text-gray-800">Election Name</label>
+            <div class="mt-2 rounded-md shadow-md"  style="display: inline-block;">
+              <input type="text" name="name"  class="block rounded-md border-gray-500 pl-3 pr-3 focus:border-indigo-500 focus:ring-indigo-500 md:text-md" placeholder="Election Name" required>
+            </div>
+          </div>
+          <div style="margin-top: 2rem;">
+            <label for="customurl" class="block text-md font-medium text-gray-800">Election URL(Must not contain blank spaces)</label>
+            <div class="mt-2 rounded-md shadow-md"  style="display: inline-block;">
+              <input type="text" name="customurl"class="block rounded-md border-gray-500 pl-3 pr-3 focus:border-indigo-500 focus:ring-indigo-500 md:text-md" placeholder="Election URL">
+            </div>
+          </div>
+          <button type="submit" class="inline-block rounded-lg bg-indigo-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 hover:bg-indigo-700 hover:ring-indigo-700" style="background-color: #008080; border-color: #008080;margin-top: 2rem;">
+            Create
+            <span class="text-indigo-200" aria-hidden="true">&rarr;</span>
+          </button>
+        </form>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
