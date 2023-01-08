@@ -1,14 +1,12 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Election extends Model {
     static associate(models) {
       Election.belongsTo(models.Creator, {
         foreignKey: "creatorID",
       });
-    };
+    }
     static GetElections(creatorID) {
       return this.findAll({
         where: {
@@ -16,37 +14,39 @@ module.exports = (sequelize, DataTypes) => {
         },
         order: [["id", "ASC"]],
       });
-    };
-    static addElection({creatorID,name,customurl})
-    {
+    }
+    static addElection({ creatorID, name, customurl }) {
       return this.create({
         creatorID,
         name,
-        customurl
-      })
-    };
-  }
-  Election.init({
-    name:{
-      type: DataTypes.STRING,
-      allowNull:false
-    },
-    customurl:{
-      type: DataTypes.STRING,
-      allowNull:false,
-      unique:true
-    },
-    launched: {
-      type:DataTypes.BOOLEAN,
-      defaultValue:false
-    },
-    completed: {
-      type:DataTypes.BOOLEAN,
-      defaultValue:false
+        customurl,
+      });
     }
-  }, {
-    sequelize,
-    modelName: 'Election',
-  });
+  }
+  Election.init(
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      customurl: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      launched: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      completed: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: "Election",
+    }
+  );
   return Election;
 };
